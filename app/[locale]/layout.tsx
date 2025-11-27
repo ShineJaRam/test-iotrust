@@ -21,9 +21,11 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className="antialiased">
+      <body className="antialiased bg-white">
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <div className="min-h-screen max-w-[759px] mx-auto bg-white shadow-xl">
+            {children}
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>
