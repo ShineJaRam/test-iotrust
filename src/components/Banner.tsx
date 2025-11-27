@@ -54,7 +54,6 @@ export const Banner = () => {
                 rel="noopener noreferrer"
                 className="block relative w-full h-[200px] bg-gray-900 overflow-hidden"
               >
-                {/* Background Image */}
                 {image && (
                   <Image
                     src={image}
@@ -65,7 +64,6 @@ export const Banner = () => {
                   />
                 )}
 
-                {/* Content Overlay */}
                 <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent z-10" />
 
                 <div className="relative z-20 h-full flex flex-col justify-end p-6">
@@ -93,7 +91,6 @@ export const Banner = () => {
         })}
       </Swiper>
 
-      {/* Slide Counter */}
       <div className="absolute top-4 right-4 z-30 bg-black/50 text-white text-xs px-3 py-1 rounded-full">
         {currentSlide} / {BANNER_DATA.length}
       </div>
