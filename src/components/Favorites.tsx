@@ -44,6 +44,9 @@ export const Favorites = () => {
                 width={48}
                 height={48}
                 className="rounded-lg"
+                loading="lazy" // Lazy loading 적용
+                quality={85}
+                sizes="48px"
               />
             </div>
 

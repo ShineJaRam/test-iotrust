@@ -41,6 +41,9 @@ export const DAppBottomSheet = () => {
                   width={64}
                   height={64}
                   className="rounded-xl"
+                  loading="lazy" // Lazy loading 적용
+                  quality={85}
+                  sizes="64px"
                 />
               </div>
               <div className="flex-1 min-w-0">

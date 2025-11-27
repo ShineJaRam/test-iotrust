@@ -60,7 +60,12 @@ export const Banner = () => {
                     alt={description || "Banner"}
                     fill
                     className="object-cover"
-                    priority={banner.id === 1}
+                    priority={banner.id === 1} // 첫 번째 배너만 우선 로드
+                    loading={banner.id === 1 ? "eager" : "lazy"} // 나머지는 lazy loading
+                    quality={85} // 이미지 품질 (1-100)
+                    sizes="(max-width: 759px) 100vw, 759px" // 반응형 이미지 크기
+                    placeholder="blur" // 로딩 중 블러 효과
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==" // 작은 placeholder
                   />
                 )}
 
