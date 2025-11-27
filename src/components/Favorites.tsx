@@ -4,15 +4,21 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { FAVORITES_DATA } from "@/src/data/favorites";
+import { useModalStore } from "@/src/store/modalStore";
 
 export const Favorites = () => {
   const t = useTranslations();
   const [favorites, setFavorites] = useState(FAVORITES_DATA);
-  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const openModal = useModalStore((state) => state.openModal);
 
-  const handleDelete = (id: number) => {
-    setFavorites(favorites.filter((fav) => fav.id !== id));
-    setDeleteId(null);
+  const handleDeleteClick = (id: number) => {
+    openModal(
+      t("dapp_favorite_delete"),
+      t("dapp_favorite_delete_confirm"),
+      () => {
+        setFavorites(favorites.filter((fav) => fav.id !== id));
+      }
+    );
   };
 
   if (favorites.length === 0) {
@@ -54,7 +60,7 @@ export const Favorites = () => {
             </a>
 
             <button
-              onClick={() => setDeleteId(favorite.id)}
+              onClick={() => handleDeleteClick(favorite.id)}
               className="shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
               aria-label={t("dapp_favorite_delete")}
             >
@@ -75,35 +81,6 @@ export const Favorites = () => {
           </div>
         ))}
       </div>
-
-      {deleteId && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-sm w-full overflow-hidden">
-            <div className="p-6 text-center">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                {t("dapp_favorite_delete")}
-              </h3>
-              <p className="text-sm text-gray-600">
-                {t("dapp_favorite_delete_confirm")}
-              </p>
-            </div>
-            <div className="flex border-t border-gray-200">
-              <button
-                onClick={() => setDeleteId(null)}
-                className="flex-1 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-              >
-                {t("button_cancel")}
-              </button>
-              <button
-                onClick={() => handleDelete(deleteId)}
-                className="flex-1 py-3 text-sm font-medium text-blue-600 hover:bg-gray-50 transition-colors border-l border-gray-200"
-              >
-                {t("button_confirm")}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 };

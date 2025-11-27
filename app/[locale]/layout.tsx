@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/src/i18n/routing";
+import { Modal } from "@/src/components/Modal";
 import "../globals.css";
 
 export default async function RootLayout({
@@ -26,6 +27,7 @@ export default async function RootLayout({
           <div className="min-h-screen max-w-[759px] mx-auto bg-white shadow-xl">
             {children}
           </div>
+          <Modal />
         </NextIntlClientProvider>
       </body>
     </html>
