@@ -6,9 +6,9 @@ import { useLocale } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 import { BANNER_DATA } from "@/src/data/banners";
-
 import "swiper/css";
 import "swiper/css/pagination";
+import "@/src/styles/Banner.css";
 
 export const Banner = () => {
   const locale = useLocale();
@@ -94,31 +94,6 @@ export const Banner = () => {
       <div className="absolute top-4 right-4 z-30 bg-black/50 text-white text-xs px-3 py-1 rounded-full">
         {currentSlide} / {BANNER_DATA.length}
       </div>
-
-      <style jsx global>{`
-        .banner-swiper {
-          width: 100%;
-          height: 200px;
-        }
-
-        .banner-swiper .swiper-pagination {
-          bottom: 16px !important;
-          z-index: 30;
-        }
-
-        .banner-swiper .swiper-pagination-bullet {
-          width: 8px;
-          height: 8px;
-          background: rgba(255, 255, 255, 0.5);
-          opacity: 1;
-        }
-
-        .banner-swiper .swiper-pagination-bullet-active {
-          background: white;
-          width: 24px;
-          border-radius: 4px;
-        }
-      `}</style>
     </div>
   );
 };
