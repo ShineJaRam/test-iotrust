@@ -5,11 +5,13 @@ import { useLocale, useTranslations } from "next-intl";
 import { isIOS } from "react-device-detect";
 import Image from "next/image";
 import { DAPP_LIST } from "@/src/data/dapps";
+import { useBottomSheetStore } from "@/src/store/bottomSheetStore";
 
 export const DAppList = () => {
   const t = useTranslations();
   const locale = useLocale();
   const env = process.env.NEXT_PUBLIC_ENV || "production";
+  const openSheet = useBottomSheetStore((state) => state.openSheet);
 
   const filteredDApps = useMemo(() => {
     return DAPP_LIST.filter((dapp) => {
@@ -49,12 +51,10 @@ export const DAppList = () => {
             locale === "ko" ? dapp.description_ko : dapp.description_en;
 
           return (
-            <a
+            <button
               key={dapp.id}
-              href={dapp.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() => openSheet(dapp)}
+              className="w-full flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors text-left"
             >
               {/* Icon */}
               <div className="relative w-12 h-12 shrink-0">
@@ -107,7 +107,7 @@ export const DAppList = () => {
                   />
                 </svg>
               </div>
-            </a>
+            </button>
           );
         })}
       </div>

@@ -3,6 +3,8 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/src/i18n/routing";
 import { Modal } from "@/src/components/Modal";
+import { DAppBottomSheet } from "@/src/components/DAppBottomSheet";
+import { QueryProvider } from "@/src/providers/QueryProvider";
 import "../globals.css";
 
 export default async function RootLayout({
@@ -23,12 +25,15 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className="antialiased bg-white">
-        <NextIntlClientProvider messages={messages}>
-          <div className="min-h-screen max-w-[759px] mx-auto bg-white shadow-xl">
-            {children}
-          </div>
-          <Modal />
-        </NextIntlClientProvider>
+        <QueryProvider>
+          <NextIntlClientProvider messages={messages}>
+            <div className="min-h-screen max-w-[759px] mx-auto bg-white shadow-xl">
+              {children}
+            </div>
+            <Modal />
+            <DAppBottomSheet />
+          </NextIntlClientProvider>
+        </QueryProvider>
       </body>
     </html>
   );
