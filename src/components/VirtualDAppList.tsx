@@ -140,9 +140,7 @@ export const VirtualDAppList = () => {
             </p>
           ) : (
             <p className="text-gray-500">
-              {locale === "ko"
-                ? "검색 결과가 없습니다."
-                : "No results found."}
+              {locale === "ko" ? "검색 결과가 없습니다." : "No results found."}
             </p>
           )}
         </div>
