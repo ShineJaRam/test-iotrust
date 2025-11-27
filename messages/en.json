@@ -15,5 +15,9 @@
   "all_loaded": "All DApps loaded.",
   "items": "items",
   "error_loading_data": "Failed to load data.",
-  "no_data": "No DApps to display."
+  "no_data": "No DApps to display.",
+  "error_boundary_title": "Something went wrong",
+  "error_boundary_description": "Please refresh the page or try again later.",
+  "error_boundary_button": "Refresh",
+  "error_boundary_details": "Error Details"
 }

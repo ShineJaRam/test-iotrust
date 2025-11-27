@@ -15,5 +15,9 @@
   "all_loaded": "모든 DApp을 불러왔습니다.",
   "items": "items",
   "error_loading_data": "데이터를 불러오는데 실패했습니다.",
-  "no_data": "표시할 DApp이 없습니다."
+  "no_data": "표시할 DApp이 없습니다.",
+  "error_boundary_title": "문제가 발생했습니다",
+  "error_boundary_description": "페이지를 새로고침하거나 잠시 후 다시 시도해주세요.",
+  "error_boundary_button": "새로고침",
+  "error_boundary_details": "오류 상세"
 }

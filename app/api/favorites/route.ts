@@ -9,7 +9,6 @@ export interface Favorite {
   createdAt: string;
 }
 
-// Mock 즐겨찾기 데이터 (실제로는 DB 또는 사용자별 저장소에서 가져옴)
 const MOCK_FAVORITES: Favorite[] = [
   {
     id: 1,
@@ -37,12 +36,10 @@ const MOCK_FAVORITES: Favorite[] = [
   },
 ];
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    // 순서대로 정렬
     const favorites = [...MOCK_FAVORITES].sort((a, b) => a.order - b.order);
 
-    // 네트워크 지연 시뮬레이션
     await new Promise((resolve) => setTimeout(resolve, 200));
 
     return NextResponse.json({
@@ -58,7 +55,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// 즐겨찾기 삭제 API
 export async function DELETE(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
@@ -68,7 +64,6 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 });
     }
 
-    // 실제로는 DB에서 삭제
     const index = MOCK_FAVORITES.findIndex((fav) => fav.id === parseInt(id));
 
     if (index === -1) {
@@ -80,7 +75,6 @@ export async function DELETE(request: NextRequest) {
 
     MOCK_FAVORITES.splice(index, 1);
 
-    // 네트워크 지연 시뮬레이션
     await new Promise((resolve) => setTimeout(resolve, 200));
 
     return NextResponse.json({
@@ -95,4 +89,3 @@ export async function DELETE(request: NextRequest) {
     );
   }
 }
-

@@ -3,9 +3,10 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { queryClient } from "@/src/lib/queryClient";
+import { ReactNode } from "react";
 
 interface QueryProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export const QueryProvider = ({ children }: QueryProviderProps) => {
@@ -18,4 +19,3 @@ export const QueryProvider = ({ children }: QueryProviderProps) => {
     </QueryClientProvider>
   );
 };
-

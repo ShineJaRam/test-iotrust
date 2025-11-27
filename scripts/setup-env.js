@@ -1,26 +1,25 @@
 #!/usr/bin/env node
 
-/**
- * 환경 변수 설정 스크립트
- * Usage: node scripts/setup-env.js [dev|stage|prod]
- */
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-const fs = require('fs');
-const path = require('path');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const env = process.argv[2] || 'dev';
+const env = process.argv[2] || "dev";
 const envFiles = {
-  dev: '.env.development',
-  stage: '.env.staging',
-  prod: '.env.production',
+  dev: ".env.development",
+  stage: ".env.staging",
+  prod: ".env.production",
 };
 
 const sourceFile = envFiles[env];
-const targetFile = '.env.local';
+const targetFile = ".env.local";
 
 if (!sourceFile) {
   console.error(`❌ Invalid environment: ${env}`);
-  console.log('Usage: node scripts/setup-env.js [dev|stage|prod]');
+  console.log("Usage: node scripts/setup-env.js [dev|stage|prod]");
   process.exit(1);
 }
 
@@ -41,4 +40,3 @@ try {
   console.error(`❌ Failed to copy file:`, error.message);
   process.exit(1);
 }
-

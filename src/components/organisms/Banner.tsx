@@ -2,10 +2,13 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
 import { useLocale } from "next-intl";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useBanners } from "@/src/hooks/useBanners";
+import { BannerLoadingIndicator } from "@/src/components/atoms";
+import { IMAGE_SIZES, IMAGE_QUALITY } from "@/src/constants/images";
 import "swiper/css";
 import "swiper/css/pagination";
 import "@/src/styles/Banner.css";
@@ -15,20 +18,34 @@ export const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(1);
   const { data, isLoading, isError } = useBanners();
 
-  // 로딩 상태
+  const handleSlideChange = useCallback((swiper: SwiperType) => {
+    setCurrentSlide(swiper.realIndex + 1);
+  }, []);
+
+  const swiperConfig = useMemo(
+    () => ({
+      modules: [Pagination, Autoplay],
+      spaceBetween: 0,
+      slidesPerView: 1,
+      pagination: {
+        clickable: true,
+        bulletClass: "swiper-pagination-bullet",
+        bulletActiveClass: "swiper-pagination-bullet-active",
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+    }),
+    []
+  );
+
   if (isLoading) {
-    return (
-      <div className="relative w-full h-[200px] bg-gray-200 animate-pulse">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-8 h-8 border-3 border-gray-400 border-t-transparent rounded-full animate-spin" />
-        </div>
-      </div>
-    );
+    return <BannerLoadingIndicator />;
   }
 
-  // 에러 상태
   if (isError || !data) {
-    return null; // 에러 시 배너 숨김
+    return null;
   }
 
   const banners = data.data;
@@ -40,22 +57,9 @@ export const Banner = () => {
   return (
     <div className="relative w-full">
       <Swiper
-        modules={[Pagination, Autoplay]}
-        spaceBetween={0}
-        slidesPerView={1}
-        pagination={{
-          clickable: true,
-          bulletClass: "swiper-pagination-bullet",
-          bulletActiveClass: "swiper-pagination-bullet-active",
-        }}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
+        {...swiperConfig}
         loop={banners.length > 1}
-        onSlideChange={(swiper) => {
-          setCurrentSlide(swiper.realIndex + 1);
-        }}
+        onSlideChange={handleSlideChange}
         className="banner-swiper"
       >
         {banners.map((banner, index) => {
@@ -83,12 +87,10 @@ export const Banner = () => {
                     alt={description || "Banner"}
                     fill
                     className="object-cover"
-                    priority={index === 0} // 첫 번째 배너만 우선 로드
-                    loading={index === 0 ? "eager" : "lazy"} // 나머지는 lazy loading
-                    quality={85} // 이미지 품질 (1-100)
-                    sizes="(max-width: 759px) 100vw, 759px" // 반응형 이미지 크기
-                    placeholder="blur" // 로딩 중 블러 효과
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==" // 작은 placeholder
+                    priority={index === 0}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    quality={IMAGE_QUALITY.HIGH}
+                    sizes={IMAGE_SIZES.BANNER}
                   />
                 )}
 

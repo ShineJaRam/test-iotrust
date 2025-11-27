@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { useModalStore } from "@/src/store/modalStore";
 
@@ -7,14 +8,14 @@ export const Modal = () => {
   const t = useTranslations();
   const { isOpen, title, message, onConfirm, closeModal } = useModalStore();
 
-  if (!isOpen) return null;
-
-  const handleConfirm = () => {
+  const handleConfirm = useCallback(() => {
     if (onConfirm) {
       onConfirm();
     }
     closeModal();
-  };
+  }, [onConfirm, closeModal]);
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">

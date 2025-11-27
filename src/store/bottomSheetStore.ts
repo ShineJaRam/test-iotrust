@@ -12,5 +12,5 @@ export const useBottomSheetStore = create<BottomSheetState>((set) => ({
   isOpen: false,
   dapp: null,
   openSheet: (dapp) => set({ isOpen: true, dapp }),
-  closeSheet: () => set({ isOpen: false }), // dapp 정보는 유지하여 애니메이션 중 내용 유지
+  closeSheet: () => set({ isOpen: false }),
 }));

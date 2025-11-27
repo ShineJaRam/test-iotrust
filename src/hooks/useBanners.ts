@@ -8,8 +8,7 @@ export const useBanners = () => {
   return useQuery({
     queryKey: ["banners", locale],
     queryFn: () => bannerApi.getList(locale),
-    staleTime: 10 * 60 * 1000, // 10분
-    gcTime: 30 * 60 * 1000, // 30분
+    staleTime: 10 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });
 };
-

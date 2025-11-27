@@ -4,12 +4,12 @@ import { Drawer } from "vaul";
 import { useLocale } from "next-intl";
 import Image from "next/image";
 import { useBottomSheetStore } from "@/src/store/bottomSheetStore";
+import { IMAGE_SIZES, IMAGE_QUALITY } from "@/src/constants/images";
 
 export const DAppBottomSheet = () => {
   const locale = useLocale();
   const { isOpen, dapp, closeSheet } = useBottomSheetStore();
 
-  // dapp 정보가 없으면 렌더링하지 않음
   if (!dapp) return null;
 
   const description =
@@ -25,14 +25,11 @@ export const DAppBottomSheet = () => {
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-40" />
         <Drawer.Content className="bg-white flex flex-col rounded-t-[16px] h-[85%] mt-24 fixed bottom-0 left-0 right-0 z-50 max-w-[759px] mx-auto">
-          {/* Handle */}
           <div className="flex justify-center py-4">
             <div className="w-12 h-1.5 bg-gray-300 rounded-full" />
           </div>
 
-          {/* Content */}
           <div className="px-6 pb-6 overflow-y-auto flex-1">
-            {/* Header */}
             <div className="flex items-center gap-4 mb-6">
               <div className="relative w-16 h-16 shrink-0">
                 <Image
@@ -41,9 +38,9 @@ export const DAppBottomSheet = () => {
                   width={64}
                   height={64}
                   className="rounded-xl"
-                  loading="lazy" // Lazy loading 적용
-                  quality={85}
-                  sizes="64px"
+                  loading="lazy"
+                  quality={IMAGE_QUALITY.HIGH}
+                  sizes={IMAGE_SIZES.ICON_MD}
                 />
               </div>
               <div className="flex-1 min-w-0">
@@ -58,7 +55,6 @@ export const DAppBottomSheet = () => {
               </div>
             </div>
 
-            {/* URL */}
             <a
               href={dapp.url}
               target="_blank"
@@ -68,7 +64,6 @@ export const DAppBottomSheet = () => {
               {dapp.url}
             </a>
 
-            {/* Description */}
             {description && (
               <div className="mb-8">
                 <h3 className="text-base font-bold text-gray-900 mb-3">
@@ -80,7 +75,6 @@ export const DAppBottomSheet = () => {
               </div>
             )}
 
-            {/* Go Button */}
             <button
               onClick={handleGoClick}
               className="w-full py-3 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 transition-colors cursor-pointer"

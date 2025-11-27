@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export interface Banner {
   id: number;
@@ -14,7 +14,6 @@ export interface Banner {
   isActive: boolean;
 }
 
-// Mock 배너 데이터 (실제로는 DB에서 가져옴)
 const MOCK_BANNERS: Banner[] = [
   {
     id: 1,
@@ -58,14 +57,12 @@ const MOCK_BANNERS: Banner[] = [
   },
 ];
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    // 활성화된 배너만 필터링하고 순서대로 정렬
     const activeBanners = MOCK_BANNERS.filter((banner) => banner.isActive).sort(
       (a, b) => a.order - b.order
     );
 
-    // 네트워크 지연 시뮬레이션
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     return NextResponse.json({

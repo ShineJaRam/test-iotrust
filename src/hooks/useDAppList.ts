@@ -1,6 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useLocale } from "next-intl";
-import { isIOS } from "react-device-detect";
 import { dappApi } from "@/src/api/dapps";
 
 interface UseDAppListOptions {
@@ -25,7 +24,6 @@ export const useDAppList = (options: UseDAppListOptions = {}) => {
       return lastPage.hasMore ? lastPage.page + 1 : undefined;
     },
     initialPageParam: 1,
-    staleTime: 5 * 60 * 1000, // 5분
+    staleTime: 5 * 60 * 1000,
   });
 };
-

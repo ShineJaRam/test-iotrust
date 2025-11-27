@@ -20,13 +20,7 @@ export interface BannerListResponse {
 }
 
 export const bannerApi = {
-  /**
-   * 배너 목록 조회
-   * Mock 모드: /api/banners (Next.js API Route)
-   * Real 모드: {API_BASE_URL}/banners
-   */
   getList: async (locale?: string): Promise<BannerListResponse> => {
     return ApiClient.get<BannerListResponse>("/banners", { locale });
   },
 };
-
