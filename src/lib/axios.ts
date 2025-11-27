@@ -1,7 +1,21 @@
 import axios from "axios";
 
+// 환경별 API Base URL 설정
+const getApiBaseUrl = () => {
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK === "true";
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+  // Mock 사용 시 로컬 API 사용
+  if (useMock) {
+    return "/api";
+  }
+
+  // 실제 백엔드 API URL 사용
+  return apiBaseUrl || "/api";
+};
+
 export const axiosInstance = axios.create({
-  baseURL: "/api",
+  baseURL: getApiBaseUrl(),
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",

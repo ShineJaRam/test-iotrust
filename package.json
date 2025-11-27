@@ -4,9 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:dev": "cross-env NEXT_PUBLIC_ENV=development next dev",
+    "dev:stage": "cross-env NEXT_PUBLIC_ENV=staging next dev",
+    "dev:prod": "cross-env NEXT_PUBLIC_ENV=production next dev",
     "build": "next build",
+    "build:dev": "cross-env NEXT_PUBLIC_ENV=development next build",
+    "build:stage": "cross-env NEXT_PUBLIC_ENV=staging next build",
+    "build:prod": "cross-env NEXT_PUBLIC_ENV=production next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "env:setup": "node scripts/setup-env.js"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.11",
@@ -27,6 +34,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.5",
     "tailwindcss": "^4",

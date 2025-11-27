@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/src/lib/axios";
+import { ApiClient } from "@/src/lib/apiClient";
 import { DApp } from "@/src/data/dapps";
 
 export interface DAppListResponse {
@@ -17,12 +17,13 @@ export interface DAppListParams {
 }
 
 export const dappApi = {
-  // DApp 리스트 조회 (무한 스크롤용)
+  /**
+   * DApp 리스트 조회 (무한 스크롤용)
+   * Mock 모드: /api/dapps (Next.js API Route)
+   * Real 모드: {API_BASE_URL}/dapps
+   */
   getList: async (params: DAppListParams): Promise<DAppListResponse> => {
-    const response = await axiosInstance.get<DAppListResponse>("/dapps", {
-      params,
-    });
-    return response.data;
+    return ApiClient.get<DAppListResponse>("/dapps", params);
   },
 };
 

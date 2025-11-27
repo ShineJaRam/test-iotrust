@@ -1,29 +1,57 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { FAVORITES_DATA } from "@/src/data/favorites";
+import { useFavorites, useDeleteFavorite } from "@/src/hooks/useFavorites";
 import { useModalStore } from "@/src/store/modalStore";
 
 export const Favorites = () => {
   const t = useTranslations();
-  const [favorites, setFavorites] = useState(FAVORITES_DATA);
+  const { data, isLoading, isError } = useFavorites();
+  const deleteFavorite = useDeleteFavorite();
   const openModal = useModalStore((state) => state.openModal);
 
-  const handleDeleteClick = (id: number) => {
+  const handleDeleteClick = (id: number, name: string) => {
     openModal(
       t("dapp_favorite_delete"),
       t("dapp_favorite_delete_confirm"),
       () => {
-        setFavorites(favorites.filter((fav) => fav.id !== id));
+        deleteFavorite.mutate(id);
       }
     );
   };
 
-  if (favorites.length === 0) {
+  // 로딩 상태
+  if (isLoading) {
+    return (
+      <section className="bg-gray-100 py-4 px-4">
+        <h2 className="text-base font-bold text-gray-900 mb-3">
+          {t("dapp_favorite_title")}
+        </h2>
+        <div className="space-y-2">
+          {[1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className="bg-white rounded-lg p-3 flex items-center gap-3 animate-pulse"
+            >
+              <div className="w-12 h-12 bg-gray-200 rounded-lg" />
+              <div className="flex-1 space-y-2">
+                <div className="h-4 bg-gray-200 rounded w-24" />
+                <div className="h-3 bg-gray-200 rounded w-32" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // 에러 또는 데이터 없음
+  if (isError || !data || data.data.length === 0) {
     return null;
   }
+
+  const favorites = data.data;
 
   return (
     <section className="bg-gray-100 py-4 px-4">
@@ -63,8 +91,9 @@ export const Favorites = () => {
             </a>
 
             <button
-              onClick={() => handleDeleteClick(favorite.id)}
-              className="shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+              onClick={() => handleDeleteClick(favorite.id, favorite.name)}
+              disabled={deleteFavorite.isPending}
+              className="shrink-0 text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-50"
               aria-label={t("dapp_favorite_delete")}
             >
               <svg

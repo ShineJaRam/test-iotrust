@@ -5,6 +5,7 @@ import { routing } from "@/src/i18n/routing";
 import { Modal } from "@/src/components/Modal";
 import { DAppBottomSheet } from "@/src/components/DAppBottomSheet";
 import { QueryProvider } from "@/src/providers/QueryProvider";
+import { ErrorBoundary } from "@/src/components/ErrorBoundary";
 import "../globals.css";
 
 export default async function RootLayout({
@@ -25,15 +26,17 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className="antialiased bg-white">
-        <QueryProvider>
-          <NextIntlClientProvider messages={messages}>
-            <div className="min-h-screen max-w-[759px] mx-auto bg-white shadow-xl">
-              {children}
-            </div>
-            <Modal />
-            <DAppBottomSheet />
-          </NextIntlClientProvider>
-        </QueryProvider>
+        <ErrorBoundary>
+          <QueryProvider>
+            <NextIntlClientProvider messages={messages}>
+              <div className="min-h-screen max-w-[759px] mx-auto bg-white shadow-xl">
+                {children}
+              </div>
+              <Modal />
+              <DAppBottomSheet />
+            </NextIntlClientProvider>
+          </QueryProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

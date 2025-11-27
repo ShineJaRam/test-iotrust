@@ -5,5 +5,15 @@
   "dapp_list_title": "List",
   "go_to_dapp": "Go",
   "button_cancel": "Cancel",
-  "button_confirm": "Confirm"
+  "button_confirm": "Confirm",
+  "search_placeholder": "Search by name, description, network...",
+  "search_results": "results found",
+  "search_no_results": "No results found.",
+  "search_no_results_for": "No results found for",
+  "search_try_different": "Try different keywords.",
+  "loading_more": "Loading more...",
+  "all_loaded": "All DApps loaded.",
+  "items": "items",
+  "error_loading_data": "Failed to load data.",
+  "no_data": "No DApps to display."
 }

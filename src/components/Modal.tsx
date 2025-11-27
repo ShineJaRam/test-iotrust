@@ -35,7 +35,7 @@ export const Modal = () => {
             onClick={handleConfirm}
             className="flex-1 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
           >
-            OK
+            {t("button_confirm")}
           </button>
         </div>
       </div>
